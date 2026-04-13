@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcelo Ferreira | Assistente de Câmera</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #1e1e1e;
+    --accent: #e8c97a;
+    --accent2: #c8a45a;
+    --text: #f0ede8;
+    --muted: #6b6760;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+  }
+
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 3rem 5rem 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-name span { display: block; color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 380px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: #0a0a0a;
+    padding: 0.9rem 2.2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-block;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.9rem 2.2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right { position: relative; overflow: hidden; }
+
+  .hero-img-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.4s forwards;
+  }
+
+  .hero-img-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%) contrast(1.05);
+  }
+
+  .hero-img-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--bg) 0%, transparent 30%),
+                linear-gradient(to top, var(--bg) 0%, transparent 20%);
+  }
+
+  .vertical-text {
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  section {
+    padding: 7rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 3rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 3rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-img-wrap { position: relative; }
+
+  .about-img-wrap img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: grayscale(20%);
+    display: block;
+  }
+
+  .about-img-wrap::before {
+    content: '';
+    position: absolute;
+    top: -1rem; left: -1rem;
+    right: 1rem; bottom: 1rem;
+    border: 1px solid var(--accent);
+    z-index: -1;
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--accent);
+    color: #0a0a0a;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .about-badge .years { font-size: 2.5rem; line-height: 1; }
+  .about-badge .years-label { font-size: 0.65rem; letter-spacing: 0.1em; text-align: center; line-height: 1.2; }
+
+  .about-text p { color: var(--muted); line-height: 1.85; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+
+  .skill-tag {
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.4rem 1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  .gallery-section {
+    padding: 7rem 3rem;
+    max-width: 100%;
+    background: var(--surface);
+  }
+
+  .gallery-inner { max-width: 1200px; margin: 0 auto; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  .gallery-item { overflow: hidden; position: relative; cursor: pointer; }
+  .gallery-item:first-child { grid-column: 1 / 3; }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+    filter: grayscale(15%);
+    transition: transform 0.6s ease, filter 0.4s;
+    display: block;
+  }
+
+  .gallery-item:hover img { transform: scale(1.04); filter: grayscale(0%); }
+
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .gallery-item:hover::after { opacity: 1; }
+
+  .videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  .video-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .video-card:hover { border-color: var(--accent); }
+
+  .video-thumb { position: relative; aspect-ratio: 9/16; background: #1a1a1a; overflow: hidden; }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.3);
+    transition: background 0.3s;
+  }
+
+  .video-card:hover .video-overlay { background: rgba(0,0,0,0.1); }
+
+  .play-btn {
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1.2rem;
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+  }
+
+  .play-btn:hover { background: var(--accent); color: #0a0a0a; transform: scale(1.1); }
+
+  .video-info { padding: 1.2rem; }
+  .video-info p { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em; }
+
+  .contact-section { background: var(--surface); padding: 7rem 3rem; }
+
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+  }
+
+  .contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-icon {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-info-item h4 { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .contact-info-item a, .contact-info-item p { color: var(--text); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+  .contact-info-item a:hover { color: var(--accent); }
+
+  .form-group { margin-bottom: 1.5rem; }
+
+  .form-group label { display: block; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.8rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--accent); }
+  .form-group textarea { resize: none; height: 100px; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: var(--muted); }
+
+  .form-submit {
+    display: inline-block;
+    background: var(--accent);
+    color: #0a0a0a;
+    border: none;
+    padding: 1rem 2.8rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover { background: var(--accent2); transform: translateY(-2px); }
+
+  .success-msg { display: none; margin-top: 1rem; color: var(--accent); font-size: 0.85rem; letter-spacing: 0.08em; }
+
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.08em; }
+
+  .footer-links { display: flex; gap: 2rem; }
+
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.08em; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  .divider { width: 100%; height: 1px; background: var(--border); max-width: 1200px; margin: 0 auto; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 1.5rem 4rem; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .gallery-section { padding: 5rem 1.5rem; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-column: 1 / -1; }
+    .videos-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-section { padding: 5rem 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">MF</div>
+  <ul>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Assistente de Câmera · Brasília, DF</p>
+    <h1 class="hero-name">
+      MARCELO<br>
+      <span>FERREIRA</span>
+    </h1>
+    <p class="hero-sub">
+      Profissional de cinema e audiovisual com experiência em produções comerciais, documentários e conteúdos digitais. Focado em precisão técnica e visão criativa.
+    </p>
+    <div class="hero-cta">
+      <a href="#contato" class="btn-primary">Entrar em Contato</a>
+      <a href="#portfolio" class="btn-outline">Ver Portfolio</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-grid">
+      <!-- Substitua pelos caminhos reais das suas fotos -->
+      <img src="foto-set-1.jpg" alt="set de filmagem" onerror="this.style.background='#1a1a1a'">
+      <img src="foto-set-2.jpg" alt="filmagem externa" onerror="this.style.background='#222'">
+    </div>
+  </div>
+  <div class="vertical-text">CINEMA · AUDIOVISUAL · BRASÍLIA</div>
+</div>
+
+<section id="sobre">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="foto-perfil.jpg" alt="Marcelo Ferreira" onerror="this.style.background='#1a1a1a'">
+      <div class="about-badge">
+        <span class="years">+8</span>
+        <span class="years-label">ANOS DE EXPERIÊNCIA</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Sobre Mim</div>
+      <h2 class="section-title">BASTIDORES<br>É ONDE EU<br>VIVO</h2>
+      <p>
+        Sou <strong>Marcelo Ferreira</strong>, Assistente de Câmera com trajetória consolidada em produções audiovisuais de alto nível. Atuo nos bastidores garantindo que cada tomada seja tecnicamente impecável.
+      </p>
+      <p>
+        Minha experiência abrange <strong>gravações corporativas, comerciais publicitários, documentários e conteúdos para redes sociais</strong>, sempre com atenção aos detalhes que fazem a diferença na imagem final.
+      </p>
+      <p>
+        Trabalho com equipes criativas e técnicas de ponta, dominando equipamentos cinema como câmeras RED, Sony Venice e Canon EOS Cinema, além de acessórios, follow focus e controle de qualidade de imagem.
+      </p>
+      <div class="skills-list">
+        <span class="skill-tag">1º Assistente AC</span>
+        <span class="skill-tag">Follow Focus</span>
+        <span class="skill-tag">Câmeras RED</span>
+        <span class="skill-tag">Sony Venice</span>
+        <span class="skill-tag">Canon Cinema</span>
+        <span class="skill-tag">Foco Pulling</span>
+        <span class="skill-tag">Claquete Digital</span>
+        <span class="skill-tag">DIT</span>
+        <span class="skill-tag">Mídias & Backup</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="gallery-section" id="portfolio">
+  <div class="gallery-inner">
+    <div class="section-label" style="margin-bottom:1rem;">Portfolio</div>
+    <h2 class="section-title" style="margin-bottom:2.5rem;">NOS SETS</h2>
+    <div class="gallery-grid">
+      <!-- Substitua os src pelos caminhos reais das suas fotos -->
+      <div class="gallery-item"><img src="foto-1.jpg" alt="Entrevista em set" onerror="this.style.background='#1a1a1a'"></div>
+      <div class="gallery-item"><img src="foto-2.jpg" alt="Equipe de filmagem" onerror="this.style.background='#222'"></div>
+      <div class="gallery-item"><img src="foto-3.jpg" alt="Produção rural" onerror="this.style.background='#1a1a1a'"></div>
+      <div class="gallery-item"><img src="foto-4.jpg" alt="Contraluz paisagem" onerror="this.style.background='#222'"></div>
+      <div class="gallery-item"><img src="foto-5.jpg" alt="Set noturno" onerror="this.style.background='#1a1a1a'"></div>
+      <div class="gallery-item"><img src="foto-6.jpg" alt="Externo urbano" onerror="this.style.background='#222'"></div>
+    </div>
+  </div>
+</div>
+
+<section id="videos">
+  <div class="section-label">Trabalhos</div>
+  <h2 class="section-title">VÍDEOS<br>EM DESTAQUE</h2>
+  <div class="videos-grid">
+    <div class="video-card">
+      <div class="video-thumb">
+        <img src="thumb-video-1.jpg" alt="video 1" onerror="this.style.background='#1a1a1a'">
+        <div class="video-overlay">
+          <a href="https://www.instagram.com/cro_digital/reel/CQunQubAHns/" target="_blank" class="play-btn">▶</a>
+        </div>
+      </div>
+      <div class="video-info"><p>CRO Digital · Reel Institucional</p></div>
+    </div>
+    <div class="video-card">
+      <div class="video-thumb">
+        <img src="thumb-video-2.jpg" alt="video 2" onerror="this.style.background='#1a1a1a'">
+        <div class="video-overlay">
+          <a href="https://www.instagram.com/p/Cruee6dg5Eb/" target="_blank" class="play-btn">▶</a>
+        </div>
+      </div>
+      <div class="video-info"><p>Produção Externa · Urbano</p></div>
+    </div>
+    <div class="video-card">
+      <div class="video-thumb">
+        <img src="thumb-video-3.jpg" alt="video 3" onerror="this.style.background='#1a1a1a'">
+        <div class="video-overlay">
+          <a href="https://www.instagram.com/p/C6L5aEfOHuI/" target="_blank" class="play-btn">▶</a>
+        </div>
+      </div>
+      <div class="video-info"><p>Produção Audiovisual · Set Aberto</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="contact-section" id="contato">
+  <div class="contact-inner">
+    <div>
+      <div class="section-label">Contato</div>
+      <h2 class="section-title">VAMOS<br>TRABALHAR<br>JUNTOS</h2>
+      <div class="contact-info-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Telefone / WhatsApp</h4>
+          <a href="https://wa.me/5561826184191" target="_blank">+55 61 8261-8491</a>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">✉</div>
+        <div>
+          <h4>E-mail</h4>
+          <a href="mailto:marcelogj12@gmail.com">marcelogj12@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">in</div>
+        <div>
+          <h4>LinkedIn</h4>
+          <a href="https://www.linkedin.com/in/marcelo-ferreira-24719951/" target="_blank">marcelo-ferreira-24719951</a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" id="fname" placeholder="Seu nome completo">
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="femail" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label>Projeto</label>
+        <input type="text" id="fproject" placeholder="Tipo de produção">
+      </div>
+      <div class="form-group">
+        <label>Mensagem</label>
+        <textarea id="fmsg" placeholder="Descreva seu projeto..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">Enviar Mensagem →</button>
+      <p class="success-msg" id="successMsg">✓ Mensagem enviada! Entraremos em contato em breve.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Marcelo Ferreira · Assistente de Câmera</p>
+  <div class="footer-links">
+    <a href="mailto:marcelogj12@gmail.com">E-mail</a>
+    <a href="https://wa.me/5561826184191" target="_blank">WhatsApp</a>
+    <a href="https://www.linkedin.com/in/marcelo-ferreira-24719951/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit() {
+    const name = document.getElementById('fname').value;
+    const email = document.getElementById('femail').value;
+    const msg = document.getElementById('fmsg').value;
+
+    if (!name || !email || !msg) {
+      alert('Por favor, preencha os campos obrigatórios.');
+      return;
+    }
+
+    const subject = encodeURIComponent('Contato via Portfolio - ' + document.getElementById('fproject').value);
+    const body = encodeURIComponent(
+      'Nome: ' + name + '\n' +
+      'Email: ' + email + '\n' +
+      'Projeto: ' + document.getElementById('fproject').value + '\n\n' +
+      'Mensagem:\n' + msg
+    );
+    window.location.href = 'mailto:marcelogj12@gmail.com?subject=' + subject + '&body=' + body;
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
