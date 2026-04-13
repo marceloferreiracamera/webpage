@@ -661,6 +661,10 @@
         <input type="email" id="femail" placeholder="seu@email.com">
       </div>
       <div class="form-group">
+        <label>Telefone / WhatsApp <span style="color:var(--muted);font-size:0.65rem;letter-spacing:0.1em;">(opcional)</span></label>
+        <input type="tel" id="fphone" placeholder="+55 (00) 00000-0000">
+      </div>
+      <div class="form-group">
         <label>Projeto</label>
         <input type="text" id="fproject" placeholder="Tipo de produção">
       </div>
@@ -703,7 +707,7 @@
       const response = await fetch('https://formspree.io/f/xaqayepw', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ name, email, project, message: msg })
+        body: JSON.stringify({ name, email, phone: document.getElementById("fphone").value || "Não informado", project, message: msg })
       });
 
       if (response.ok) {
