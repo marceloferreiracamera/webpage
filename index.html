@@ -683,19 +683,47 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  function handleSubmit() {
+<script>
+  async function handleSubmit() {
     const name = document.getElementById('fname').value;
     const email = document.getElementById('femail').value;
     const msg = document.getElementById('fmsg').value;
+    const project = document.getElementById('fproject').value;
 
     if (!name || !email || !msg) {
       alert('Por favor, preencha os campos obrigatórios.');
       return;
     }
 
-    const subject = encodeURIComponent('Contato via Portfolio - ' + document.getElementById('fproject').value);
-    const body = encodeURIComponent(
-      'Nome: ' + name + '\n' +
-      'Email: ' + email + '\n' +
-      'Pr
+    const btn = document.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      const response = await fetch('https://formspree.io/f/xaqayepw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, project, message: msg })
+      });
+
+      if (response.ok) {
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('fname').value = '';
+        document.getElementById('femail').value = '';
+        document.getElementById('fproject').value = '';
+        document.getElementById('fmsg').value = '';
+        btn.textContent = 'Mensagem Enviada ✓';
+      } else {
+        alert('Erro ao enviar. Tente novamente.');
+        btn.disabled = false;
+        btn.textContent = 'Enviar Mensagem →';
+      }
+    } catch(e) {
+      alert('Erro de conexão. Tente novamente.');
+      btn.disabled = false;
+      btn.textContent = 'Enviar Mensagem →';
+    }
+  }
+</script>
+</body>
+</html>
