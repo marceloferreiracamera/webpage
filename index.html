@@ -58,12 +58,13 @@
   nav ul { list-style: none; display: flex; gap: 2.5rem; }
 
   nav a {
-    color: var(--muted);
+    color: rgba(255,255,255,0.85);
     text-decoration: none;
     font-size: 0.8rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     transition: color 0.3s;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
   }
 
   nav a:hover { color: var(--accent); }
@@ -486,6 +487,7 @@
     .hero-right { display: block; height: 40vh; }
     .hero-img-grid { position: relative; height: 100%; }
     .hero-left { padding: 7rem 1.5rem 2rem; }
+    .vertical-text { display: none; }
     section { padding: 5rem 1.5rem; }
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     .gallery-section { padding: 5rem 1.5rem; }
@@ -640,7 +642,7 @@
         <div class="contact-icon">✉</div>
         <div>
           <h4>E-mail</h4>
-          <a href="mailto:marceloferreirabradf@gmail.com" style="color:inherit;text-decoration:none">marceloferreirabradf@gmail.com</a>
+          <a href="/cdn-cgi/l/email-protection#eb868a99888e87848d8e99998e82998a89998a8f8dab8c868a8287c5888486" style="color:inherit;text-decoration:none"><span class="__cf_email__" data-cfemail="dfb2beadbcbab3b0b9baadadbab6adbebdadbebbb99fb8b2beb6b3f1bcb0b2">[email&#160;protected]</span></a>
         </div>
       </div>
       <div class="contact-info-item">
@@ -681,13 +683,13 @@
 <footer>
   <p>© 2025 Marcelo Ferreira · Assistente de Câmera</p>
   <div class="footer-links">
-    <a href="mailto:marceloferreirabradf@gmail.com">E-mail</a>
+    <a href="/cdn-cgi/l/email-protection#3d505c4f5e5851525b584f4f58544f5c5f4f5c595b7d5a505c5451135e5250">E-mail</a>
     <a href="https://wa.me/5561826184191" target="_blank">WhatsApp</a>
     <a href="https://www.linkedin.com/in/marcelo-ferreira-24719951/" target="_blank">LinkedIn</a>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   async function handleSubmit() {
     const name = document.getElementById('fname').value;
     const email = document.getElementById('femail').value;
@@ -717,17 +719,4 @@
         document.getElementById('fproject').value = '';
         document.getElementById('fmsg').value = '';
         btn.textContent = 'Mensagem Enviada ✓';
-      } else {
-        alert('Erro ao enviar. Tente novamente.');
-        btn.disabled = false;
-        btn.textContent = 'Enviar Mensagem →';
-      }
-    } catch(e) {
-      alert('Erro de conexão. Tente novamente.');
-      btn.disabled = false;
-      btn.textContent = 'Enviar Mensagem →';
-    }
-  }
-</script>
-</body>
-</html>
+      } else 
