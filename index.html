@@ -483,57 +483,6 @@
     }
 
     /* Video URL input area */
-    .video-add-area {
-      margin-top: 2rem;
-      padding: 2rem;
-      border: 1px dashed var(--border);
-      text-align: center;
-    }
-
-    .video-add-area p {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .75rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .video-input-row {
-      display: flex;
-      gap: .5rem;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .video-input-row input {
-      flex: 1;
-      background: var(--mid);
-      border: 1px solid var(--border);
-      color: var(--white);
-      padding: .6rem 1rem;
-      font-family: 'Barlow', sans-serif;
-      font-size: .85rem;
-      outline: none;
-    }
-
-    .video-input-row input:focus { border-color: var(--gold); }
-
-    .video-input-row button {
-      background: var(--gold);
-      border: none;
-      color: var(--black);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      padding: .6rem 1.2rem;
-      cursor: pointer;
-      transition: background .3s;
-    }
-
-    .video-input-row button:hover { background: var(--gold2); }
 
     /* ── LIGHTBOX ── */
     .lightbox {
@@ -1027,26 +976,50 @@
           </div>
         </div>
 
+        <div class="gallery-item wide" onclick="openLightbox(11)">
+          <img src="WhatsApp_Image8_2026-04-23_at_12_03_46.jpeg" alt="ARRI Alexa XT — set noturno">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-caption">ARRI Alexa XT — set noturno</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- Vídeos -->
     <div class="gallery-panel" id="panel-videos">
-      <div class="gallery-grid cols-2" id="video-grid">
-        <!-- Os vídeos são adicionados via JS ou manualmente aqui -->
-        <div class="gallery-item" style="background:#111; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; min-height:280px; cursor:default;">
-          <p style="font-family:'Barlow Condensed',sans-serif; font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);">
-            Adicione links de vídeo abaixo
-          </p>
-        </div>
-      </div>
+      <div class="gallery-grid cols-2">
 
-      <div class="video-add-area">
-        <p>Adicionar vídeo do YouTube ou Vimeo</p>
-        <div class="video-input-row">
-          <input type="text" id="video-url-input" placeholder="https://youtu.be/... ou https://vimeo.com/..." />
-          <button onclick="addVideo()">Adicionar</button>
+        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
+          <video src="WhatsApp_Video_2026-04-23_at_12_03_14.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+          <div class="gallery-item-overlay"><span class="gallery-item-caption">Produção — bastidores</span></div>
         </div>
+
+        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
+          <video src="WhatsApp_Video_2026-04-23_at_12_03_19.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+          <div class="gallery-item-overlay"><span class="gallery-item-caption">Set — making of</span></div>
+        </div>
+
+        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
+          <video src="WhatsApp_Video_2026-04-23_at_12_03_30.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+          <div class="gallery-item-overlay"><span class="gallery-item-caption">Câmera em movimento</span></div>
+        </div>
+
+        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
+          <video src="WhatsApp_Video_2026-04-23_at_12_03_40.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+          <div class="gallery-item-overlay"><span class="gallery-item-caption">Produção externa</span></div>
+        </div>
+
+        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
+          <video src="WhatsApp_Video_2026-04-23_at_12_03_50.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+          <div class="gallery-item-overlay"><span class="gallery-item-caption">Gimbal — movimento fluido</span></div>
+        </div>
+
+        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
+          <video src="WhatsApp_Video_2026-04-23_at_12_03_58.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+          <div class="gallery-item-overlay"><span class="gallery-item-caption">Cinematografia — resultado final</span></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1214,6 +1187,7 @@
       { src: 'WhatsApp_Image4_2026-04-23_at_12_03_41.jpeg', caption: 'ARRI — bastidores' },
       { src: 'WhatsApp_Image5_2026-04-23_at_12_03_43.jpeg', caption: 'Nucleus-M — controle de foco' },
       { src: 'WhatsApp_Image6_2026-04-23_at_12_03_45.jpeg', caption: 'SEBRAE — set corporativo' },
+      { src: 'WhatsApp_Image8_2026-04-23_at_12_03_46.jpeg', caption: 'ARRI Alexa XT — set noturno' },
     ];
 
     let currentIdx = 0;
@@ -1254,49 +1228,6 @@
       if (e.key === 'ArrowRight') navigateLightbox(1);
       if (e.key === 'ArrowLeft') navigateLightbox(-1);
     });
-
-    // ── Add video ──
-    function addVideo() {
-      const input = document.getElementById('video-url-input');
-      const url = input.value.trim();
-      if (!url) return;
-
-      const embedUrl = getEmbedUrl(url);
-      if (!embedUrl) {
-        alert('URL inválida. Use links do YouTube ou Vimeo.');
-        return;
-      }
-
-      const grid = document.getElementById('video-grid');
-
-      // Remove placeholder se for o primeiro vídeo
-      const placeholder = grid.querySelector('[style*="cursor:default"]');
-      if (placeholder) placeholder.remove();
-
-      const item = document.createElement('div');
-      item.className = 'gallery-item';
-      item.style.cssText = 'aspect-ratio:16/9; cursor:pointer;';
-      item.innerHTML = `
-        <iframe src="${embedUrl}" style="width:100%;height:100%;border:none;" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-caption">Produção Marcelo Ferreira</span>
-        </div>`;
-      grid.appendChild(item);
-
-      input.value = '';
-    }
-
-    function getEmbedUrl(url) {
-      // YouTube
-      const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
-      if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?rel=0`;
-
-      // Vimeo
-      const vmMatch = url.match(/vimeo\.com\/(\d+)/);
-      if (vmMatch) return `https://player.vimeo.com/video/${vmMatch[1]}`;
-
-      return null;
-    }
   </script>
 
 </body>
