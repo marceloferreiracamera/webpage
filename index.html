@@ -1,1234 +1,1207 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marcelo Ferreira — Diretor de Fotografia</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --black: #0a0a0a;
-      --dark: #111111;
-      --dark2: #1a1a1a;
-      --mid: #2a2a2a;
-      --border: #2e2e2e;
-      --muted: #5a5a5a;
-      --subtle: #888;
-      --light: #c8c0b0;
-      --white: #f0ebe3;
-      --gold: #c9a84c;
-      --gold2: #e8c97a;
-      --red: #c0392b;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Barlow', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: .35;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 4rem;
-      background: linear-gradient(to bottom, rgba(10,10,10,.95), transparent);
-    }
-
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 300;
-      letter-spacing: .15em;
-      color: var(--white);
-      text-decoration: none;
-    }
-
-    .nav-logo span { color: var(--gold); }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .75rem;
-      font-weight: 500;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--subtle);
-      text-decoration: none;
-      transition: color .3s;
-    }
-
-    .nav-links a:hover { color: var(--gold); }
-
-    /* ── HERO ── */
-    .hero {
-      height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      padding: 0 4rem 5rem;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1410 50%, #0a0a0a 100%);
-    }
-
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 70% 40%, rgba(201,168,76,.08) 0%, transparent 60%);
-    }
-
-    .hero-reel {
-      position: absolute;
-      top: 0; right: 0;
-      width: 60%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .hero-reel::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, var(--black) 0%, transparent 40%);
-      z-index: 2;
-    }
-
-    .hero-reel-inner {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3px;
-      opacity: .45;
-    }
-
-    .hero-reel-inner .reel-strip {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      animation: scrollStrip 20s linear infinite;
-    }
-
-    .hero-reel-inner .reel-strip:nth-child(2) {
-      animation-direction: reverse;
-      animation-duration: 25s;
-    }
-
-    .hero-reel-inner .reel-strip img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    @keyframes scrollStrip {
-      from { transform: translateY(0); }
-      to { transform: translateY(-50%); }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 3;
-      max-width: 650px;
-    }
-
-    .hero-eyebrow {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 7vw, 6.5rem);
-      font-weight: 300;
-      line-height: 1;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-title em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .hero-sub {
-      font-size: .95rem;
-      color: var(--subtle);
-      max-width: 440px;
-      margin-bottom: 2.5rem;
-      line-height: 1.8;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: .75rem;
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      padding: .9rem 2rem;
-      text-decoration: none;
-      transition: background .3s, color .3s;
-    }
-
-    .hero-cta:hover {
-      background: var(--gold);
-      color: var(--black);
-    }
-
-    .hero-stats {
-      position: absolute;
-      bottom: 5rem;
-      right: 4rem;
-      z-index: 3;
-      display: flex;
-      gap: 3rem;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .65rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: .3rem;
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 7rem 4rem; }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-bottom: 4rem;
-    }
-
-    .section-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
-      font-weight: 300;
-      color: var(--border);
-      line-height: 1;
-    }
-
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      line-height: 1.2;
-      color: var(--white);
-    }
-
-    /* ── ABOUT ── */
-    .about { background: var(--dark); }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .about-img {
-      position: relative;
-    }
-
-    .about-img img {
-      width: 100%;
-      height: 600px;
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-    }
-
-    .about-img::after {
-      content: '';
-      position: absolute;
-      bottom: -15px;
-      right: -15px;
-      width: 60%;
-      height: 60%;
-      border: 1px solid var(--gold);
-      z-index: -1;
-    }
-
-    .about-text p {
-      color: var(--light);
-      margin-bottom: 1.5rem;
-      font-size: 1rem;
-    }
-
-    .about-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      margin-top: 2.5rem;
-    }
-
-    .tag {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .7rem;
-      font-weight: 500;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      color: var(--subtle);
-      padding: .4rem .9rem;
-      transition: border-color .3s, color .3s;
-    }
-
-    .tag:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    /* ── GALLERY ── */
-    .gallery { background: var(--black); }
-
-    /* Tab bar */
-    .gallery-tabs {
-      display: flex;
-      gap: 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 3rem;
-    }
-
-    .gallery-tab {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: .9rem 2rem;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color .3s, border-color .3s;
-    }
-
-    .gallery-tab.active {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
-    }
-
-    .gallery-tab:hover { color: var(--light); }
-
-    /* Gallery grid */
-    .gallery-panel { display: none; }
-    .gallery-panel.active { display: block; }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 4px;
-    }
-
-    .gallery-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
-    .gallery-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      aspect-ratio: 4/3;
-    }
-
-    .gallery-item.tall { aspect-ratio: 3/4; }
-    .gallery-item.wide { aspect-ratio: 16/9; grid-column: span 2; }
-    .gallery-item.square { aspect-ratio: 1; }
-
-    .gallery-item img,
-    .gallery-item video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .6s ease, filter .4s;
-      filter: brightness(.85) saturate(.9);
-      display: block;
-    }
-
-    .gallery-item:hover img,
-    .gallery-item:hover video {
-      transform: scale(1.06);
-      filter: brightness(1) saturate(1.1);
-    }
-
-    .gallery-item-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity .4s;
-      display: flex;
-      align-items: flex-end;
-      padding: 1.2rem;
-    }
-
-    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-
-    .gallery-item-caption {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .7rem;
-      font-weight: 500;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .gallery-item-play {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 56px;
-      height: 56px;
-      border: 2px solid rgba(255,255,255,.8);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .3s, border-color .3s;
-    }
-
-    .gallery-item:hover .gallery-item-play {
-      background: var(--gold);
-      border-color: var(--gold);
-    }
-
-    .gallery-item-play svg {
-      width: 20px;
-      height: 20px;
-      fill: white;
-      margin-left: 3px;
-    }
-
-    /* Video URL input area */
-
-    /* ── LIGHTBOX ── */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0,0,0,.96);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    .lightbox.open { display: flex; }
-
-    .lightbox-media {
-      max-width: 90vw;
-      max-height: 80vh;
-      object-fit: contain;
-    }
-
-    .lightbox-media iframe {
-      width: 80vw;
-      height: 45vw;
-      max-height: 80vh;
-      border: none;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--subtle);
-      cursor: pointer;
-      background: none;
-      border: 1px solid var(--border);
-      padding: .5rem 1rem;
-      transition: color .3s, border-color .3s;
-    }
-
-    .lightbox-close:hover {
-      color: var(--gold);
-      border-color: var(--gold);
-    }
-
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--subtle);
-      font-size: 1.5rem;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: color .3s, border-color .3s;
-    }
-
-    .lightbox-nav:hover { color: var(--gold); border-color: var(--gold); }
-    .lightbox-nav.prev { left: 2rem; }
-    .lightbox-nav.next { right: 2rem; }
-
-    .lightbox-caption {
-      margin-top: 1.5rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .7rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* ── SERVICES ── */
-    .services { background: var(--dark2); }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-
-    .service-card {
-      padding: 2.5rem;
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      transition: border-color .3s;
-    }
-
-    .service-card:hover { border-top-color: var(--gold); }
-
-    .service-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--gold);
-    }
-
-    .service-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-      margin-bottom: 1rem;
-      color: var(--white);
-    }
-
-    .service-desc {
-      font-size: .875rem;
-      color: var(--subtle);
-      line-height: 1.8;
-    }
-
-    /* ── CLIENTS ── */
-    .clients { background: var(--black); }
-
-    .clients-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-    }
-
-    .client-cell {
-      background: var(--black);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100px;
-      transition: background .3s;
-    }
-
-    .client-cell:hover { background: var(--dark2); }
-
-    .client-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .85rem;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-      transition: color .3s;
-    }
-
-    .client-cell:hover .client-name { color: var(--light); }
-
-    /* ── EQUIPMENT ── */
-    .equipment { background: var(--dark); }
-
-    .equip-cols {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-    }
-
-    .equip-col h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: .75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .equip-col ul { list-style: none; }
-
-    .equip-col li {
-      font-size: .875rem;
-      color: var(--subtle);
-      padding: .4rem 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      transition: color .3s;
-    }
-
-    .equip-col li:hover { color: var(--light); }
-
-    .equip-col li::before {
-      content: '▸';
-      color: var(--gold);
-      font-size: .65rem;
-    }
-
-    /* ── CONTACT ── */
-    .contact {
-      background: var(--dark2);
-      text-align: center;
-    }
-
-    .contact .section-header {
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .contact-lead {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      font-style: italic;
-      color: var(--light);
-      max-width: 600px;
-      margin: 0 auto 3rem;
-      line-height: 1.5;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .85rem;
-      font-weight: 500;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--subtle);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      padding-bottom: .2rem;
-      transition: color .3s, border-color .3s;
-    }
-
-    .contact-link:hover {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black);
-      padding: 2rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--border);
-    }
-
-    footer p {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .65rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1.2rem 2rem; }
-      .nav-links { display: none; }
-      section { padding: 5rem 2rem; }
-      .hero { padding: 0 2rem 4rem; }
-      .hero-reel { width: 100%; opacity: .2; }
-      .hero-stats { right: 2rem; bottom: 3rem; gap: 2rem; }
-      .about-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
-      .gallery-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
-      .services-grid { grid-template-columns: 1fr; }
-      .clients-grid { grid-template-columns: repeat(2, 1fr); }
-      .equip-cols { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcelo Ferreira — Assistente de Câmera</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --charcoal: #141414;
+    --dark: #1c1c1c;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --white: #f5f5f0;
+    --gray: #888;
+    --light-gray: #ccc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    transition: background 0.3s;
+  }
+  nav.scrolled { background: rgba(10,10,10,0.97); }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--light-gray);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 50%),
+      linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.8) 70%, rgba(10,10,10,1) 100%);
+    z-index: 1;
+  }
+
+  /* Cinematic film grain */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px;
+    opacity: 0.4;
+    z-index: 2;
+    pointer-events: none;
+    animation: grain 0.5s steps(1) infinite;
+  }
+
+  @keyframes grain {
+    0% { transform: translate(0,0); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(2px, -3px); }
+    60% { transform: translate(-1px, 3px); }
+    80% { transform: translate(3px, -1px); }
+    100% { transform: translate(0,0); }
+  }
+
+  /* Decorative film strip on side */
+  .film-strip {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    background: var(--charcoal);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2rem 0;
+  }
+
+  .film-hole {
+    width: 20px;
+    height: 14px;
+    background: var(--black);
+    border-radius: 3px;
+    margin: 0 auto;
+  }
+
+  /* Large background text */
+  .hero-eyeline {
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 18vw, 20rem);
+    color: rgba(201,168,76,0.04);
+    letter-spacing: -0.02em;
+    z-index: 1;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    padding: 0 4rem 5rem;
+    max-width: 800px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-left: 2px solid var(--gold);
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 9vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s 0.15s ease both;
+  }
+
+  .hero-title span {
+    display: block;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 0.9rem;
+    color: var(--gray);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s 0.3s ease both;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    padding: 0.9rem 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    animation: fadeInUp 0.8s 0.45s ease both;
+  }
+  .hero-cta:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    right: 100px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+    animation: scrollPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 60px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 3rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* SOBRE */
+  #sobre {
+    background: var(--charcoal);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .sobre-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #bbb;
+    margin-bottom: 1.5rem;
+  }
+
+  .sobre-text p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .registro-card {
+    background: var(--dark);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--gold);
+    padding: 2rem 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .registro-card .reg-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .registro-card p {
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .registro-card p strong { color: var(--white); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: rgba(201,168,76,0.1);
+  }
+
+  .stat-item {
+    background: var(--dark);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* EQUIPAMENTOS */
+  #equipamentos {
+    background: var(--black);
+  }
+
+  .equip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+    margin-top: 1rem;
+  }
+
+  .equip-item {
+    background: var(--charcoal);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .equip-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .equip-item:hover { background: var(--dark); }
+  .equip-item:hover::before { transform: scaleX(1); }
+
+  .equip-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .equip-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    color: var(--white);
+  }
+
+  .equip-desc {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  /* GALERIA */
+  #galeria {
+    background: var(--charcoal);
+    padding: 6rem 0;
+  }
+
+  #galeria .inner {
+    padding: 0 4rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 4px;
+    margin-top: 3rem;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: var(--dark);
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-item.tall { grid-row: span 2; aspect-ratio: unset; }
+  .gallery-item.wide { grid-column: span 2; }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: grayscale(20%);
+    display: block;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.06);
+    filter: grayscale(0%);
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  .gallery-caption {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* VIDEO section */
+  #videos {
+    background: var(--black);
+  }
+
+  .video-intro {
+    font-size: 0.95rem;
+    color: #999;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .video-card {
+    background: var(--charcoal);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .video-card video {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .video-card:hover video { transform: scale(1.03); }
+
+  .video-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    pointer-events: none;
+  }
+
+  .video-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  /* CINEMA section */
+  #cinema {
+    background: var(--charcoal);
+  }
+
+  .cinema-intro {
+    font-size: 0.95rem;
+    color: #999;
+    line-height: 1.7;
+    max-width: 640px;
+    margin-bottom: 3rem;
+  }
+
+  .cinema-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(201,168,76,0.08);
+    margin-bottom: 3rem;
+  }
+
+  .cinema-cat {
+    background: var(--dark);
+    padding: 3rem 2rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .cinema-cat:hover { border-color: var(--gold); }
+
+  .cinema-cat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cinema-cat-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .cinema-cat-desc {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  .awards-banner {
+    background: linear-gradient(135deg, rgba(201,168,76,0.15) 0%, rgba(201,168,76,0.05) 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-left: 4px solid var(--gold);
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .awards-icon { font-size: 3rem; flex-shrink: 0; }
+
+  .awards-text h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .awards-text p {
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.6;
+  }
+
+  /* HABILIDADES */
+  #habilidades {
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .skills-list {
+    list-style: none;
+    margin-top: 1rem;
+  }
+
+  .skills-list li {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #bbb;
+    letter-spacing: 0.05em;
+  }
+
+  .skill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .skill-bar-wrap {
+    width: 100px;
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .skill-bar {
+    height: 100%;
+    background: var(--gold);
+  }
+
+  .clients-section { margin-top: 0; }
+
+  .clients-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .client-item {
+    background: var(--charcoal);
+    padding: 1.8rem 2rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 0.08em;
+    transition: color 0.3s, background 0.3s;
+  }
+
+  .client-item:hover {
+    color: var(--gold);
+    background: var(--dark);
+  }
+
+  /* CONTATO */
+  #contato {
+    background: var(--charcoal);
+    text-align: center;
+  }
+
+  .contato-sub {
+    font-size: 0.85rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  .contato-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .contato-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .contato-btn.primary {
+    background: var(--gold);
+    color: var(--black);
+  }
+  .contato-btn.primary:hover { background: var(--gold-light); }
+
+  .contato-btn.secondary {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+  }
+  .contato-btn.secondary:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.active { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  .lightbox-close:hover { border-color: var(--gold); color: var(--gold); }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white);
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .lightbox-nav:hover { border-color: var(--gold); color: var(--gold); }
+  .lightbox-nav.prev { left: 2rem; }
+  .lightbox-nav.next { right: 2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 2rem; }
+    .hero-content { padding: 0 2rem 4rem; }
+    #sobre { grid-template-columns: 1fr; gap: 3rem; }
+    .equip-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-item.tall, .gallery-item.wide { grid-column: unset; grid-row: unset; aspect-ratio: 4/3; }
+    .video-grid { grid-template-columns: 1fr; }
+    .cinema-categories { grid-template-columns: 1fr; }
+    #habilidades { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .film-strip { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    #galeria .inner { padding: 0 2rem; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- ── NAV ── -->
-  <nav>
-    <a class="nav-logo" href="#"><span>M</span>arcelo Ferreira</a>
-    <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#galeria">Galeria</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#equipamentos">Equipamentos</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
-  </nav>
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Marcelo Ferreira</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#equipamentos">Equipamentos</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#videos">Vídeos</a></li>
+    <li><a href="#cinema">Cinema</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
 
-  <!-- ── HERO ── -->
-  <section class="hero" id="inicio">
-    <div class="hero-bg"></div>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-eyeline">CÂMERA</div>
 
-    <div class="hero-reel">
-      <div class="hero-reel-inner">
-        <!-- Strip 1 -->
-        <div class="reel-strip">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_14.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_17.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_19.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_31.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_40.jpeg" alt="">
-          <!-- duplicados para loop contínuo -->
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_14.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_17.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_19.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_31.jpeg" alt="">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_40.jpeg" alt="">
-        </div>
-        <!-- Strip 2 -->
-        <div class="reel-strip">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_41.jpeg" alt="">
-          <img src="WhatsApp_Image22026-04-23_at_12_03_31.jpeg" alt="">
-          <img src="WhatsApp_Image3_2026-04-23_at_12_03_41.jpeg" alt="">
-          <img src="WhatsApp_Image4_2026-04-23_at_12_03_41.jpeg" alt="">
-          <img src="WhatsApp_Image5_2026-04-23_at_12_03_43.jpeg" alt="">
-          <!-- duplicados para loop contínuo -->
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_41.jpeg" alt="">
-          <img src="WhatsApp_Image22026-04-23_at_12_03_31.jpeg" alt="">
-          <img src="WhatsApp_Image3_2026-04-23_at_12_03_41.jpeg" alt="">
-          <img src="WhatsApp_Image4_2026-04-23_at_12_03_41.jpeg" alt="">
-          <img src="WhatsApp_Image5_2026-04-23_at_12_03_43.jpeg" alt="">
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-content">
-      <div class="hero-eyebrow">Diretor de Fotografia</div>
-      <h1 class="hero-title">
-        Marcelo<br><em>Ferreira</em>
-      </h1>
-      <p class="hero-sub">
-        Mais de 10 anos capturando histórias através das lentes — do cinema ao documentário, do corporativo ao publicidade.
-      </p>
-      <a class="hero-cta" href="#galeria">Ver portfólio ↓</a>
-    </div>
-
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">10+</div>
-        <div class="stat-label">Anos de experiência</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">200+</div>
-        <div class="stat-label">Projetos realizados</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">ARRI</div>
-        <div class="stat-label">Câmeras certificado</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── SOBRE ── -->
-  <section class="about" id="sobre">
-    <div class="about-grid">
-      <div class="about-img">
-        <img src="WhatsApp_Image6_2026-04-23_at_12_03_45.jpeg" alt="Marcelo Ferreira — Diretor de Fotografia" />
-      </div>
-      <div class="about-text">
-        <div class="section-header" style="margin-bottom:2rem;">
-          <div>
-            <div class="section-label">Sobre</div>
-            <h2 class="section-title">Visão que<br>transforma imagem</h2>
-          </div>
-        </div>
-        <p>
-          Com mais de 10 anos de experiência como Diretor de Fotografia, Marcelo Ferreira construiu uma trajetória sólida em produções cinematográficas, documentários, publicidade e conteúdo corporativo por todo o Brasil.
-        </p>
-        <p>
-          Sua abordagem combina domínio técnico das câmeras ARRI, RED e sistemas de gimbal com uma sensibilidade artística apurada — capturando a essência de cada história com luz, composição e movimento precisos.
-        </p>
-        <p>
-          De usinas hidrelétricas a palcos de grandes eventos, de clínicas hospitalares a anfiteatros ao ar livre: Marcelo leva a mesma dedicação e excelência a cada projeto.
-        </p>
-        <div class="about-tags">
-          <span class="tag">Cinematografia</span>
-          <span class="tag">Documentário</span>
-          <span class="tag">Publicidade</span>
-          <span class="tag">Corporativo</span>
-          <span class="tag">Live Events</span>
-          <span class="tag">ARRI Certified</span>
-          <span class="tag">Gimbal Op</span>
-          <span class="tag">Focus Puller</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── GALERIA ── -->
-  <section class="gallery" id="galeria">
-    <div class="section-header">
-      <div class="section-number">02</div>
-      <div>
-        <div class="section-label">Portfólio</div>
-        <h2 class="section-title">Galeria de trabalhos</h2>
-      </div>
-    </div>
-
-    <!-- Tabs -->
-    <div class="gallery-tabs">
-      <button class="gallery-tab active" onclick="switchTab('fotos', this)">Fotos de Bastidores</button>
-      <button class="gallery-tab" onclick="switchTab('videos', this)">Vídeos</button>
-    </div>
-
-    <!-- Fotos -->
-    <div class="gallery-panel active" id="panel-fotos">
-      <div class="gallery-grid" id="photo-grid">
-
-        <div class="gallery-item tall" onclick="openLightbox(0)">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_14.jpeg" alt="Bastidores — câmera dolly">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Câmera dolly — set fechado</span>
-          </div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox(1)">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_17.jpeg" alt="Bastidores — evento ao vivo">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Captação ao vivo</span>
-          </div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox(2)">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_19.jpeg" alt="ARRI — set de filmagem">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">ARRI — produção</span>
-          </div>
-        </div>
-
-        <div class="gallery-item wide" onclick="openLightbox(3)">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_31.jpeg" alt="Produção externa — Itaipu">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Produção externa — Itaipu</span>
-          </div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox(4)">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_40.jpeg" alt="Brasília — set externo">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Set externo — Brasília</span>
-          </div>
-        </div>
-
-        <div class="gallery-item tall" onclick="openLightbox(5)">
-          <img src="WhatsApp_Image_2026-04-23_at_12_03_41.jpeg" alt="Gimbal — carro">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Car mount — gimbal</span>
-          </div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox(6)">
-          <img src="WhatsApp_Image22026-04-23_at_12_03_31.jpeg" alt="Bastidores — set interno">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Set interno</span>
-          </div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox(7)">
-          <img src="WhatsApp_Image3_2026-04-23_at_12_03_41.jpeg" alt="Câmera — produção">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Câmera — produção</span>
-          </div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox(8)">
-          <img src="WhatsApp_Image4_2026-04-23_at_12_03_41.jpeg" alt="Bastidores ARRI">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">ARRI — bastidores</span>
-          </div>
-        </div>
-
-        <div class="gallery-item wide" onclick="openLightbox(9)">
-          <img src="WhatsApp_Image5_2026-04-23_at_12_03_43.jpeg" alt="Nucleus-M — controle de foco">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">Nucleus-M — controle de foco</span>
-          </div>
-        </div>
-
-        <div class="gallery-item" onclick="openLightbox(10)">
-          <img src="WhatsApp_Image6_2026-04-23_at_12_03_45.jpeg" alt="SEBRAE — set corporativo">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">SEBRAE — set corporativo</span>
-          </div>
-        </div>
-
-        <div class="gallery-item wide" onclick="openLightbox(11)">
-          <img src="WhatsApp_Image8_2026-04-23_at_12_03_46.jpeg" alt="ARRI Alexa XT — set noturno">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-caption">ARRI Alexa XT — set noturno</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Vídeos -->
-    <div class="gallery-panel" id="panel-videos">
-      <div class="gallery-grid cols-2">
-
-        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
-          <video src="WhatsApp_Video_2026-04-23_at_12_03_14.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
-          <div class="gallery-item-overlay"><span class="gallery-item-caption">Produção — bastidores</span></div>
-        </div>
-
-        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
-          <video src="WhatsApp_Video_2026-04-23_at_12_03_19.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
-          <div class="gallery-item-overlay"><span class="gallery-item-caption">Set — making of</span></div>
-        </div>
-
-        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
-          <video src="WhatsApp_Video_2026-04-23_at_12_03_30.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
-          <div class="gallery-item-overlay"><span class="gallery-item-caption">Câmera em movimento</span></div>
-        </div>
-
-        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
-          <video src="WhatsApp_Video_2026-04-23_at_12_03_40.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
-          <div class="gallery-item-overlay"><span class="gallery-item-caption">Produção externa</span></div>
-        </div>
-
-        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
-          <video src="WhatsApp_Video_2026-04-23_at_12_03_50.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
-          <div class="gallery-item-overlay"><span class="gallery-item-caption">Gimbal — movimento fluido</span></div>
-        </div>
-
-        <div class="gallery-item" style="aspect-ratio:16/9; background:#000; overflow:hidden;">
-          <video src="WhatsApp_Video_2026-04-23_at_12_03_58.mp4" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
-          <div class="gallery-item-overlay"><span class="gallery-item-caption">Cinematografia — resultado final</span></div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── LIGHTBOX ── -->
-  <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
-    <button class="lightbox-close" onclick="closeLightbox()">✕ Fechar</button>
-    <button class="lightbox-nav prev" onclick="navigateLightbox(-1)">‹</button>
-    <img class="lightbox-media" id="lightbox-img" src="" alt="" />
-    <div class="lightbox-caption" id="lightbox-caption"></div>
-    <button class="lightbox-nav next" onclick="navigateLightbox(1)">›</button>
+  <!-- Film strip decoration -->
+  <div class="film-strip">
+    <div class="film-hole"></div><div class="film-hole"></div>
+    <div class="film-hole"></div><div class="film-hole"></div>
+    <div class="film-hole"></div><div class="film-hole"></div>
+    <div class="film-hole"></div><div class="film-hole"></div>
+    <div class="film-hole"></div><div class="film-hole"></div>
+    <div class="film-hole"></div><div class="film-hole"></div>
   </div>
 
-  <!-- ── SERVIÇOS ── -->
-  <section class="services" id="servicos">
-    <div class="section-header">
-      <div class="section-number">03</div>
-      <div>
-        <div class="section-label">O que ofereço</div>
-        <h2 class="section-title">Serviços</h2>
+  <div class="hero-content">
+    <span class="hero-tag">Assistente de Câmera · Brasília/DF</span>
+    <h1 class="hero-title">
+      Marcelo<br>
+      <span>Ferreira</span>
+    </h1>
+    <p class="hero-sub">+10 anos de experiência · Cinema · TV · Publicidade · Eventos</p>
+    <a href="#sobre" class="hero-cta">Conheça o trabalho</a>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-text">
+    <div class="section-label">Sobre</div>
+    <h2 class="section-title">A Visão<br>por Trás<br>da Lente</h2>
+    <p>
+      Com <strong>mais de 10 anos de experiência</strong> no mercado audiovisual, Marcelo Ferreira da Silva é um profissional especializado como Assistente de Câmera, com sólida atuação em produções de cinema, publicidade, televisão e eventos corporativos ao longo de toda a carreira.
+    </p>
+    <p>
+      Ao longo da carreira, operou equipamentos de alta gama como <strong>ARRI Alexa</strong> (XT, Mini, 35), <strong>Blackmagic</strong> (URSA Mini Pro, Cinema Camera), <strong>RED</strong>, <strong>Sony Venice</strong> e diversas câmeras profissionais Panasonic. Sua expertise inclui controle de foco, organização de set, gestão de mídia e suporte técnico de câmera em produções de grande porte.
+    </p>
+    <p>
+      Baseado em <strong>Brasília, DF</strong>, com disponibilidade para viagens nacionais e internacionais. Profissional registrado junto ao Ministério do Trabalho e Emprego, categoria <em>Técnico em Espetáculo de Diversão</em>.
+    </p>
+
+    <div class="registro-card">
+      <div class="reg-title">📋 Registro Profissional — MTE</div>
+      <p><strong>Nome:</strong> Marcelo Ferreira da Silva</p>
+      <p><strong>Função:</strong> Assistente de Câmera de Cinema</p>
+      <p><strong>Categoria:</strong> Técnico em Espetáculo de Diversão</p>
+      <p><strong>Registro nº:</strong> 0000168/DF — emitido em 16/04/2019</p>
+      <p><strong>Validade:</strong> Nacional — Ministério do Trabalho e Emprego</p>
+    </div>
+  </div>
+
+  <div class="sobre-side">
+    <div class="stats-grid reveal">
+      <div class="stat-item">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Anos de Experiência</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Produções</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">ARRI</div>
+        <div class="stat-label">Operador Certificado</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">DF</div>
+        <div class="stat-label">Brasília & Nacional</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🎬</div>
-        <h3 class="service-name">Direção de Fotografia</h3>
-        <p class="service-desc">Concepção visual completa do projeto — da paleta de cores e iluminação à direção de câmera, garantindo coesão estética e narrativa.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📡</div>
-        <h3 class="service-name">Operação de Câmera</h3>
-        <p class="service-desc">Operação profissional em câmeras ARRI, RED, Blackmagic e Panasonic, com domínio de dolly, steadicam e gimbal DJI Ronin.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎯</div>
-        <h3 class="service-name">Foco Assistido</h3>
-        <p class="service-desc">Serviço de 1st AC e Focus Puller com sistemas Nucleus-M e outros wireless follow focus em produções de alta demanda.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🏢</div>
-        <h3 class="service-name">Vídeo Corporativo</h3>
-        <p class="service-desc">Produção audiovisual para empresas, instituições e eventos — palestras, depoimentos, treinamentos e conteúdo institucional.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📺</div>
-        <h3 class="service-name">Transmissão ao Vivo</h3>
-        <p class="service-desc">Setup multicâmera para lives, congressos e eventos de grande porte com qualidade broadcast.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎵</div>
-        <h3 class="service-name">Clipes e Publicidade</h3>
-        <p class="service-desc">Captação para clipes musicais, campanhas publicitárias e conteúdo para plataformas digitais com alto padrão estético.</p>
-      </div>
+<!-- EQUIPAMENTOS -->
+<section id="equipamentos">
+  <div class="section-label">Equipamentos</div>
+  <h2 class="section-title">Câmeras &<br>Tecnologia</h2>
+  <div class="equip-grid">
+    <div class="equip-item reveal">
+      <div class="equip-icon">🎬</div>
+      <div class="equip-name">ARRI Alexa</div>
+      <div class="equip-desc">Alexa XT, Alexa Mini e Alexa 35 — o padrão ouro do cinema mundial. Experiência em produções cinematográficas de médio e grande porte com toda a linha ARRI.</div>
     </div>
-  </section>
-
-  <!-- ── CLIENTES ── -->
-  <section class="clients" id="clientes">
-    <div class="section-header">
-      <div class="section-number">04</div>
-      <div>
-        <div class="section-label">Parceiros</div>
-        <h2 class="section-title">Clientes &amp; Produções</h2>
-      </div>
+    <div class="equip-item reveal">
+      <div class="equip-icon">⚫</div>
+      <div class="equip-name">Blackmagic</div>
+      <div class="equip-desc">URSA Mini Pro 12K, Blackmagic Cinema Camera e Pocket Cinema — versatilidade e qualidade de imagem RAW para séries, curtas e produções publicitárias.</div>
     </div>
+    <div class="equip-item reveal">
+      <div class="equip-icon">🔴</div>
+      <div class="equip-name">RED Digital Cinema</div>
+      <div class="equip-desc">Operação com câmeras RED em produções que exigem altíssima resolução. Gerenciamento de mídia e fluxo de trabalho RAW em sets exigentes.</div>
+    </div>
+    <div class="equip-item reveal">
+      <div class="equip-icon">📡</div>
+      <div class="equip-name">Panasonic / Sony</div>
+      <div class="equip-desc">Panasonic AU-EVA1, AJ-PX800 e Sony Venice, FX9, FS7 — múltiplas plataformas para cobertura de eventos ao vivo, live streaming e produções corporativas.</div>
+    </div>
+    <div class="equip-item reveal">
+      <div class="equip-icon">🔭</div>
+      <div class="equip-name">Ópticas Cinematográficas</div>
+      <div class="equip-desc">Lentes Zeiss Supreme, Cooke S4, Leica Summilux-C e Sigma Cine. Domínio de foco, leitura de T-stop e trabalho com marcação de foco em cenas dinâmicas.</div>
+    </div>
+    <div class="equip-item reveal">
+      <div class="equip-icon">🎯</div>
+      <div class="equip-name">Acessórios & Suporte</div>
+      <div class="equip-desc">Follow focus wireless Nucleus-M, monitores de campo Feelworld/Atomos, gimbals, steadicam, dolly Aicon, gruas e suportes de câmera veicular.</div>
+    </div>
+  </div>
+</section>
 
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="inner">
+    <div class="section-label">Portfólio</div>
+    <h2 class="section-title">Galeria<br>de Imagens</h2>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Images populated by JS -->
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="section-label">Behind the Scenes</div>
+  <h2 class="section-title">Vídeos<br>do Set</h2>
+  <p class="video-intro">Registros dos bastidores de produções audiovisuais — do cinema de curta-metragem a grandes eventos corporativos e produções publicitárias.</p>
+
+  <div class="video-grid" id="videoGrid">
+    <!-- videos populated by JS -->
+  </div>
+</section>
+
+<!-- CINEMA -->
+<section id="cinema">
+  <div class="section-label">Cinema & Premiações</div>
+  <h2 class="section-title">Produções<br>Cinematográficas</h2>
+  <p class="cinema-intro">Com atuação em diferentes formatos do cinema brasileiro, de curtas a longas-metragens, sempre comprometido com a excelência técnica e a visão do diretor.</p>
+
+  <div class="cinema-categories reveal">
+    <div class="cinema-cat">
+      <div class="cinema-cat-icon">🎞️</div>
+      <div class="cinema-cat-name">Curtas-Metragens</div>
+      <div class="cinema-cat-desc">Participação em curtas-metragens de ficção e documentário, exibidos em festivais nacionais. Experiência com equipes enxutas e alta criatividade técnica.</div>
+    </div>
+    <div class="cinema-cat">
+      <div class="cinema-cat-icon">🎭</div>
+      <div class="cinema-cat-name">Médias & Longas</div>
+      <div class="cinema-cat-desc">Atuação em produções de médias e longas-metragens no mercado brasileiro, com equipes de câmera estruturadas e alto padrão de produção.</div>
+    </div>
+    <div class="cinema-cat">
+      <div class="cinema-cat-icon">🏆</div>
+      <div class="cinema-cat-name">Filmes Premiados</div>
+      <div class="cinema-cat-desc">Contribuição técnica em produções que conquistaram reconhecimento em festivais regionais, nacionais e internacionais de cinema.</div>
+    </div>
+  </div>
+
+  <div class="awards-banner reveal">
+    <div class="awards-icon">🏆</div>
+    <div class="awards-text">
+      <h3>Reconhecimento em Festivais</h3>
+      <p>Participação em produções premiadas em festivais de cinema nacionais e internacionais. Comprometimento com a excelência técnica desde a pré-produção até a entrega final, colaborando com diretores de fotografia de renome do cenário audiovisual brasileiro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div>
+    <div class="section-label">Habilidades</div>
+    <h2 class="section-title">Expertise<br>Técnica</h2>
+    <ul class="skills-list">
+      <li>
+        <span><span class="skill-dot" style="display:inline-block;margin-right:0.75rem"></span>Assistência de Câmera (1º AC)</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:100%"></div></div>
+      </li>
+      <li>
+        <span><span class="skill-dot" style="display:inline-block;margin-right:0.75rem"></span>Operação de Câmera</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div>
+      </li>
+      <li>
+        <span><span class="skill-dot" style="display:inline-block;margin-right:0.75rem"></span>Controle de Foco (Follow Focus)</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:98%"></div></div>
+      </li>
+      <li>
+        <span><span class="skill-dot" style="display:inline-block;margin-right:0.75rem"></span>Gerenciamento de Mídia (DIT)</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+      </li>
+      <li>
+        <span><span class="skill-dot" style="display:inline-block;margin-right:0.75rem"></span>Transmissão ao Vivo / Live</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+      </li>
+      <li>
+        <span><span class="skill-dot" style="display:inline-block;margin-right:0.75rem"></span>Câmeras ARRI / Blackmagic</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:100%"></div></div>
+      </li>
+      <li>
+        <span><span class="skill-dot" style="display:inline-block;margin-right:0.75rem"></span>Gimbal & Steadicam</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="clients-section reveal">
+    <div class="clients-title">Clientes & Produções</div>
     <div class="clients-grid">
-      <div class="client-cell"><span class="client-name">Itaipu Binacional</span></div>
-      <div class="client-cell"><span class="client-name">SEBRAE</span></div>
-      <div class="client-cell"><span class="client-name">Cotton Brazil</span></div>
-      <div class="client-cell"><span class="client-name">OAT Cinematografia</span></div>
-      <div class="client-cell"><span class="client-name">Brasília — Prod. Externas</span></div>
-      <div class="client-cell"><span class="client-name">Produções Ficcionais</span></div>
-      <div class="client-cell"><span class="client-name">Eventos Corporativos</span></div>
-      <div class="client-cell"><span class="client-name">Conteúdo Digital</span></div>
+      <div class="client-item">Cotton Brazil</div>
+      <div class="client-item">SEBRAE</div>
+      <div class="client-item">Produções Publicitárias</div>
+      <div class="client-item">Eventos Corporativos</div>
+      <div class="client-item">Cinema Nacional</div>
+      <div class="client-item">Documentários</div>
+      <div class="client-item">Séries & TV</div>
+      <div class="client-item">Clipes Musicais</div>
     </div>
-  </section>
 
-  <!-- ── EQUIPAMENTOS ── -->
-  <section class="equipment" id="equipamentos">
-    <div class="section-header">
-      <div class="section-number">05</div>
-      <div>
-        <div class="section-label">Arsenal técnico</div>
-        <h2 class="section-title">Equipamentos</h2>
+    <div style="margin-top: 3rem; padding: 2rem; background: var(--charcoal); border-left: 3px solid var(--gold);">
+      <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Disponibilidade</div>
+      <p style="font-size:0.85rem;color:#aaa;line-height:1.7;">
+        📍 <strong style="color:var(--white)">Base:</strong> Brasília, DF<br>
+        ✈️ <strong style="color:var(--white)">Viagens:</strong> Nacional e Internacional<br>
+        📱 <strong style="color:var(--white)">Contato rápido via WhatsApp</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="section-label" style="justify-content:center">Contato</div>
+  <h2 class="section-title" style="text-align:center">Vamos<br>Trabalhar<br>Juntos?</h2>
+  <p class="contato-sub">Disponível para produções em Brasília e todo o território nacional. Entre em contato para orçamentos e disponibilidade.</p>
+  <div class="contato-links">
+    <a href="https://wa.me/5561999999999" class="contato-btn primary" target="_blank">
+      📱 WhatsApp
+    </a>
+    <a href="mailto:marcelo@email.com" class="contato-btn secondary" target="_blank">
+      ✉️ E-mail
+    </a>
+    <a href="https://instagram.com/" class="contato-btn secondary" target="_blank">
+      📸 Instagram
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Marcelo Ferreira</div>
+  <div class="footer-copy">© 2026 — Assistente de Câmera · Brasília, DF · Registro MTE 0000168/DF</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav prev" onclick="lightboxNav(-1)">‹</button>
+  <img src="" id="lightboxImg" alt="">
+  <button class="lightbox-nav next" onclick="lightboxNav(1)">›</button>
+</div>
+
+<script>
+  // === Gallery images (using placeholder solid colors since images are local) ===
+  // In production, replace src values with actual image paths or base64
+  const galleryImages = [
+    { src: 'foto1.jpg', caption: 'Cobertura de Evento', cls: 'tall' },
+    { src: 'foto2.jpg', caption: 'ARRI on Set' },
+    { src: 'foto3.jpg', caption: 'BTS Brasília', cls: 'wide' },
+    { src: 'foto4.jpg', caption: 'Operação de Câmera' },
+    { src: 'foto5.jpg', caption: 'Set de Gravação' },
+    { src: 'foto6.jpg', caption: 'Externas' },
+    { src: 'foto7.jpg', caption: 'Produção Corporativa' },
+    { src: 'foto8.jpg', caption: 'Camera Rig' },
+    { src: 'foto9.jpg', caption: 'SEBRAE' },
+    { src: 'foto10.jpg', caption: 'Foco Pulling' },
+    { src: 'foto11.jpg', caption: 'Set Cinematográfico' },
+    { src: 'foto12.jpg', caption: 'ARRI Alexa XT' },
+  ];
+
+  const videoFiles = [
+    { src: 'video1.mp4', label: 'BTS · Produção' },
+    { src: 'video2.mp4', label: 'BTS · Set' },
+    { src: 'video3.mp4', label: 'BTS · Câmera' },
+    { src: 'video4.mp4', label: 'BTS · Externos' },
+    { src: 'video5.mp4', label: 'BTS · Gravação' },
+    { src: 'video6.mp4', label: 'BTS · Making Of' },
+  ];
+
+  // Build gallery
+  const grid = document.getElementById('galleryGrid');
+  galleryImages.forEach((img, i) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item' + (img.cls ? ' ' + img.cls : '');
+    div.innerHTML = `
+      <img src="${img.src}" alt="${img.caption}" loading="lazy" onerror="this.parentElement.style.background='#1c1c1c'">
+      <div class="gallery-overlay">
+        <span class="gallery-caption">${img.caption}</span>
       </div>
-    </div>
+    `;
+    div.addEventListener('click', () => openLightbox(i));
+    grid.appendChild(div);
+  });
 
-    <div class="equip-cols">
-      <div class="equip-col">
-        <h3>Câmeras</h3>
-        <ul>
-          <li>ARRI Alexa / Amira</li>
-          <li>RED Cinema</li>
-          <li>Blackmagic URSA / Pocket</li>
-          <li>Panasonic AU-EVA1 / GH5</li>
-          <li>Canon Cinema EOS</li>
-        </ul>
+  // Build video grid
+  const vgrid = document.getElementById('videoGrid');
+  videoFiles.forEach(v => {
+    const div = document.createElement('div');
+    div.className = 'video-card';
+    div.innerHTML = `
+      <video src="${v.src}" muted loop playsinline preload="metadata"
+        onmouseenter="this.play()" onmouseleave="this.pause(); this.currentTime=0;">
+      </video>
+      <div class="video-card-overlay">
+        <span class="video-label">${v.label}</span>
       </div>
-      <div class="equip-col">
-        <h3>Suporte &amp; Movimento</h3>
-        <ul>
-          <li>DJI Ronin — Gimbal</li>
-          <li>Dolly Aicon / Slider</li>
-          <li>Tripés Video 60 Plus</li>
-          <li>Cabeças fluidas Manfrotto</li>
-          <li>Shoulder rig</li>
-        </ul>
-      </div>
-      <div class="equip-col">
-        <h3>Óticas &amp; Acessórios</h3>
-        <ul>
-          <li>Lentes Zeiss CP.2 / CZ.2</li>
-          <li>Lentes Meike Cinema</li>
-          <li>Nucleus-M Wireless Focus</li>
-          <li>Monitor Feelworld Ultra-Bright</li>
-          <li>Transmissão sem fio Hollyland</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    `;
+    vgrid.appendChild(div);
+  });
 
-  <!-- ── CONTATO ── -->
-  <section class="contact" id="contato">
-    <div class="section-header">
-      <div class="section-label">Vamos conversar</div>
-      <h2 class="section-title">Contato</h2>
-    </div>
-    <p class="contact-lead">"Cada projeto é uma nova história esperando para ser contada com luz e movimento."</p>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:marcelo@email.com">✉ marcelo@email.com</a>
-      <a class="contact-link" href="https://wa.me/55" target="_blank">📱 WhatsApp</a>
-      <a class="contact-link" href="https://instagram.com/" target="_blank">📷 Instagram</a>
-      <a class="contact-link" href="https://vimeo.com/" target="_blank">🎬 Vimeo</a>
-    </div>
-  </section>
+  // Lightbox
+  let currentLightbox = 0;
+  function openLightbox(i) {
+    currentLightbox = i;
+    document.getElementById('lightboxImg').src = galleryImages[i].src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function lightboxNav(dir) {
+    currentLightbox = (currentLightbox + dir + galleryImages.length) % galleryImages.length;
+    document.getElementById('lightboxImg').src = galleryImages[currentLightbox].src;
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
+  });
 
-  <!-- ── FOOTER ── -->
-  <footer>
-    <p>© 2026 Marcelo Ferreira — Diretor de Fotografia</p>
-    <p>Feito com luz e paixão · Brasil</p>
-  </footer>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
 
-  <!-- ── SCRIPTS ── -->
-  <script>
-    // ── Tab switching ──
-    function switchTab(panel, btn) {
-      document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.gallery-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('panel-' + panel).classList.add('active');
-    }
-
-    // ── Photo lightbox ──
-    const photos = [
-      { src: 'WhatsApp_Image_2026-04-23_at_12_03_14.jpeg', caption: 'Câmera dolly — set fechado' },
-      { src: 'WhatsApp_Image_2026-04-23_at_12_03_17.jpeg', caption: 'Captação ao vivo' },
-      { src: 'WhatsApp_Image_2026-04-23_at_12_03_19.jpeg', caption: 'ARRI — produção' },
-      { src: 'WhatsApp_Image_2026-04-23_at_12_03_31.jpeg', caption: 'Produção externa — Itaipu' },
-      { src: 'WhatsApp_Image_2026-04-23_at_12_03_40.jpeg', caption: 'Set externo — Brasília' },
-      { src: 'WhatsApp_Image_2026-04-23_at_12_03_41.jpeg', caption: 'Car mount — gimbal' },
-      { src: 'WhatsApp_Image22026-04-23_at_12_03_31.jpeg', caption: 'Set interno' },
-      { src: 'WhatsApp_Image3_2026-04-23_at_12_03_41.jpeg', caption: 'Câmera — produção' },
-      { src: 'WhatsApp_Image4_2026-04-23_at_12_03_41.jpeg', caption: 'ARRI — bastidores' },
-      { src: 'WhatsApp_Image5_2026-04-23_at_12_03_43.jpeg', caption: 'Nucleus-M — controle de foco' },
-      { src: 'WhatsApp_Image6_2026-04-23_at_12_03_45.jpeg', caption: 'SEBRAE — set corporativo' },
-      { src: 'WhatsApp_Image8_2026-04-23_at_12_03_46.jpeg', caption: 'ARRI Alexa XT — set noturno' },
-    ];
-
-    let currentIdx = 0;
-
-    function openLightbox(idx) {
-      currentIdx = idx;
-      showLightboxPhoto();
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function showLightboxPhoto() {
-      const p = photos[currentIdx];
-      const img = document.getElementById('lightbox-img');
-      img.src = p.src;
-      img.alt = p.caption;
-      img.style.display = 'block';
-      document.getElementById('lightbox-caption').textContent = p.caption;
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    function closeLightboxOnBg(e) {
-      if (e.target === document.getElementById('lightbox')) closeLightbox();
-    }
-
-    function navigateLightbox(dir) {
-      currentIdx = (currentIdx + dir + photos.length) % photos.length;
-      showLightboxPhoto();
-    }
-
-    document.addEventListener('keydown', e => {
-      if (!document.getElementById('lightbox').classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') navigateLightbox(1);
-      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
-  </script>
-
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
